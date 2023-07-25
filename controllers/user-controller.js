@@ -10,18 +10,26 @@ const secretKey = "secret";
 const register = async (req, res) => {
   const data = req.body;
 
-  const newUser = await userModel.create({
-    username: data.username,
-    password: await hashPassword(data.password),
-    token: generateToken(data.username, secretKey),
-  });
-  res.status(201).json({
-    username: newUser.username,
-    password: newUser.password,
-    token: newUser.token,
-    created_at: newUser.createdAt,
-    updated_at: newUser.updatedAt,
-  });
+  await userModel
+    .create({
+      username: data.username,
+      password: await hashPassword(data.password),
+      token: generateToken(data.username, secretKey),
+    })
+    .then((user) => {
+      res.status(201).json({
+        message: "User registered",
+        error: false,
+        data: user,
+      });
+    })
+    .catch((err) => {
+      res.status(400).json({
+        message: "User already existed",
+        error: err,
+      });
+      return;
+    });
 };
 
 const login = async (req, res) => {
