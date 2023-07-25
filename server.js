@@ -1,7 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const glob = require("glob");
-const { getAllUsers, createUser } = require("./controllers/user-controller");
 
 const PORT = 4003;
 const app = express();
