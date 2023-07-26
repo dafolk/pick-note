@@ -16,4 +16,4 @@ const isTokenExpired = (token, secretKey) => {
   return bool;
 };
 
-module.exports = { generateToken, isTokenExpired, decodeToken };
+module.exports = { generateToken, isTokenExpired };

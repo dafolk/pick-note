@@ -1,11 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const glob = require("glob");
+const authorization = require("./middleware/auth-middleware");
 
 const PORT = 4003;
 const app = express();
 
 app.use(express.json());
+app.use(authorization);
 
 mongoose
   .connect("mongodb://pick-note:picknote@localhost:27017/pick-note")
