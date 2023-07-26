@@ -51,4 +51,29 @@ const createNote = async (req, res) => {
     });
 };
 
-module.exports = { getAllNotes, createNote };
+const updateNote = async (req, res) => {
+  const data = req.body;
+  await noteModel
+    .findByIdAndUpdate(req.params.id, { body: data.body }, { new: true })
+    .then((update) => {
+      res.status(200).json({
+        error: false,
+        message: "Note updated",
+        data: update,
+      });
+    });
+};
+
+const deleteNote = async (req, res) => {
+  const id = req.params.id;
+
+  await noteModel.findByIdAndDelete(id).then((result) => {
+    res.status(200).json({
+      error: false,
+      message: "Note deleted",
+      data: result,
+    });
+  });
+};
+
+module.exports = { getAllNotes, createNote, updateNote, deleteNote };
