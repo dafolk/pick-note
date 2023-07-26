@@ -3,11 +3,13 @@ const mongoose = require("mongoose");
 const glob = require("glob");
 const authorization = require("./middleware/auth-middleware");
 const cors = require("cors");
+const helmet = require("helmet");
 
 const PORT = 4003;
 const app = express();
 
 app.use(cors());
+app.use(helmet());
 app.use(express.json());
 app.use(authorization);
 
